@@ -13,6 +13,22 @@ module.exports = {
     // app: ["/client.jsx", "WordRelay.jsx"],
     // 입력
   },
+
+  module: {
+    rules: [
+      {
+        test: /\.jsx?/, //  js 파일이랑 jsx파일을 룰을 적용할 것이다
+        loader: "babel-loader", // 어떤 룰? 바벨 룰
+        options: {
+          presets: ["@babel/preset-env", "@babel/preset-react"],
+          plugins: ["@babel/plugin-proposal-class-properties"],
+          compact: false,
+        },
+      },
+    ],
+  }, // 엔트리에 있는 파일을 읽고 모듈을 적용한 후 아웃풋에 뺀다.
+  // rules는 여러개의 규칙을 정할 수 있긴 때문에 배열이다.
+
   output: {
     // 출력
     path: path.join(__dirname, "dist"), // 현재 폴더 안에 있는 dist
