@@ -1,4 +1,5 @@
 const path = require("path");
+const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = {
   name: "word-relay-setting",
@@ -9,7 +10,7 @@ module.exports = {
   },
   // 중요!
   entry: {
-    app: ["/client", "WordRelay"],
+    app: ["/client", "/WordRelay"],
     // app: ["/client.jsx", "WordRelay.jsx"],
     // 입력
   },
@@ -21,17 +22,25 @@ module.exports = {
         loader: "babel-loader", // 어떤 룰? 바벨 룰
         options: {
           presets: ["@babel/preset-env", "@babel/preset-react"],
-          plugins: ["@babel/plugin-proposal-class-properties"],
+          plugins: [
+            "@babel/plugin-proposal-class-properties",
+            "react-refresh/babel",
+          ],
         },
       },
     ],
   }, // 엔트리에 있는 파일을 읽고 모듈을 적용한 후 아웃풋에 뺀다.
   // rules는 여러개의 규칙을 정할 수 있긴 때문에 배열이다.
-
+  plugins: [new RefreshWebpackPlugin()], // 빌드할 때마다 이부분이 장착이 됩니다.
   output: {
     // 출력
     path: path.join(__dirname, "dist"), // 현재 폴더 안에 있는 dist
     filename: "app.js",
+    publicPath: "/dist/",
+  },
+  devServer: {
+    publicPath: "/dist/",
+    hot: true,
   },
   /* 
     문제가 client.jsx, WordRelay.jsx가 하나로 합쳐줘야 되어서 웹팩이 등장하여  
