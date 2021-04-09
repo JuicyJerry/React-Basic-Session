@@ -3,7 +3,6 @@
 // npm에서 리액트를 불러와준다.
 const { useState, useRef } = require("react");
 const React = require("react");
-
 const WordRelay = () => {
   const [word, setWord] = useState("제로초");
   const [value, setValue] = useState("");
